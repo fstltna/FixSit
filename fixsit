@@ -51,6 +51,11 @@ while(<FH>)
 		print "Saw a .pdf file\n";
 		system ("$ATTRIBCMD -t '????' -c 'PDF ' '$filename'");
 	}
+	if (($fileext eq "zip") || ($fileext eq "ZIP"))
+	{
+		print "Saw a .zip file\n";
+		system ("$ATTRIBCMD -t 'ZIP ' -c 'SITx' '$filename'");
+	}
 
 }
 close(FH);
