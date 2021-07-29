@@ -25,7 +25,7 @@ while(<FH>)
 	my ($filedir, $filetype) = split(/\s+/, $_);
 	my $filename = substr($_, 46);
 	chop($filename);
-print "filename = $filename\n";
+	#print "filename = $filename\n";
 	if ($filedir ne "f")
 	{
 		print "Saw a directory for $filedir\n";
