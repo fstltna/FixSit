@@ -1,4 +1,4 @@
-# FixSit
+# FixSit (1.0)
 Fix Macintosh file attribs on Linux using hfsutils
 
 Steps:
