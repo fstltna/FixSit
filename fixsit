@@ -1,0 +1,54 @@
+#!/usr/bin/perl
+
+# Corrects the file types for common extensions
+
+use warnings;
+use strict;
+
+my $DIRCMD = "hdir";
+my $ATTRIBCMD = "hattrib";
+my $TEMPFILE = "/tmp/filenames";
+
+# Main Code		================================
+
+# Get a list of the files in the volume
+system("$DIRCMD > $TEMPFILE");
+
+# Open the fie list
+open(FH, '<', "$TEMPFILE") or die $!;
+
+# Loop for all lines in the file
+while(<FH>)
+{
+	#print $_;
+	#my ($filedir, $filetype, $somefield, $filesize, $date, $day, $time, $filename) = split(/\s+/, $_);
+	my ($filedir, $filetype) = split(/\s+/, $_);
+	my $filename = substr($_, 46);
+	chop($filename);
+print "filename = $filename\n";
+	if ($filedir ne "f")
+	{
+		print "Saw a directory for $filedir\n";
+		next;
+	}
+	# print "Saw a file\n";
+	# print "Type was $filetype\n";
+	if ($filetype ne "????/UNIX")
+	{
+		#print "Filetype was $filetype\n";
+		next;
+	}
+	# Get the file extension
+	my $fileext = substr($filename, -3);
+	print "File extension is $fileext\n";
+	if (($fileext eq "sit") || ($fileext eq "SIT"))
+	{
+		print "Saw a .sit file\n";
+		#print("$ATTRIBCMD -t 'SIT5' -c 'SIT!' '$filename'\n");
+		system ("$ATTRIBCMD -t 'SIT5' -c 'SIT!' '$filename'");
+	}
+
+}
+close(FH);
+
+exit 0;
