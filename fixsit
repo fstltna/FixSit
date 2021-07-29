@@ -40,12 +40,16 @@ while(<FH>)
 	}
 	# Get the file extension
 	my $fileext = substr($filename, -3);
-	print "File extension is $fileext\n";
+	print "Unconverted file extension is $fileext\n";
 	if (($fileext eq "sit") || ($fileext eq "SIT"))
 	{
 		print "Saw a .sit file\n";
-		#print("$ATTRIBCMD -t 'SIT5' -c 'SIT!' '$filename'\n");
 		system ("$ATTRIBCMD -t 'SIT5' -c 'SIT!' '$filename'");
+	}
+	if (($fileext eq "pdf") || ($fileext eq "PDF"))
+	{
+		print "Saw a .pdf file\n";
+		system ("$ATTRIBCMD -t '????' -c 'PDF ' '$filename'");
 	}
 
 }
